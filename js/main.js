@@ -421,45 +421,82 @@ function initContactForm() {
             console.log('Form data:', { firstName, lastName, email, message });
             
             if (firstName && lastName && email && message) {
-                // Create contact query object
-                const contactQuery = {
-                    id: 'CQ' + Date.now(),
-                    firstName: firstName,
-                    lastName: lastName,
+                // Create contact data object
+                const contactData = {
+                    name: `${firstName} ${lastName}`,
                     email: email,
+                    subject: 'Contact Form Submission',
                     message: message,
-                    timestamp: new Date().toISOString(),
-                    status: 'new',
-                    adminReply: null,
-                    replyTimestamp: null
+                    timestamp: new Date().toISOString()
                 };
                 
-                console.log('Created contact query:', contactQuery);
+                console.log('Created contact data:', contactData);
                 
-                // Store in localStorage for admin to see
-                const contactQueries = JSON.parse(localStorage.getItem('bumableContactQueries') || '[]');
-                contactQueries.push(contactQuery);
-                localStorage.setItem('bumableContactQueries', JSON.stringify(contactQueries));
-                
-                console.log('Saved to localStorage. Total queries:', contactQueries.length);
-                
-                // Show success message
+                // Show loading message
                 messageDiv.style.display = 'block';
-                messageDiv.style.backgroundColor = '#d4edda';
-                messageDiv.style.color = '#155724';
-                messageDiv.style.border = '1px solid #c3e6cb';
-                messageDiv.innerHTML = '✓ Thank you for your message! We will get back to you soon.';
+                messageDiv.style.backgroundColor = '#fff3cd';
+                messageDiv.style.color = '#856404';
+                messageDiv.style.border = '1px solid #ffeeba';
+                messageDiv.innerHTML = '⏳ Sending your message...';
                 
-                // Reset form
-                contactForm.reset();
-                
-                // Close modal after 2 seconds
-                setTimeout(() => {
-                    if (contactModal) {
-                        contactModal.style.display = 'none';
+                // Try to save to GitHub database first, fallback to localStorage
+                async function saveContact() {
+                    try {
+                        // Try GitHub database if available
+                        if (window.githubDB) {
+                            await window.githubDB.saveContact(contactData);
+                            console.log('✅ Contact saved to GitHub Issues');
+                            
+                            // Show success message
+                            messageDiv.style.backgroundColor = '#d4edda';
+                            messageDiv.style.color = '#155724';
+                            messageDiv.style.border = '1px solid #c3e6cb';
+                            messageDiv.innerHTML = '✓ Thank you for your message! We will get back to you soon via GitHub Issues.';
+                        } else {
+                            throw new Error('GitHub database not available');
+                        }
+                    } catch (error) {
+                        console.warn('GitHub database failed, using localStorage fallback:', error);
+                        
+                        // Fallback to localStorage
+                        const contactQuery = {
+                            id: 'CQ' + Date.now(),
+                            firstName: firstName,
+                            lastName: lastName,
+                            email: email,
+                            message: message,
+                            timestamp: new Date().toISOString(),
+                            status: 'new',
+                            adminReply: null,
+                            replyTimestamp: null
+                        };
+                        
+                        const contactQueries = JSON.parse(localStorage.getItem('bumableContactQueries') || '[]');
+                        contactQueries.push(contactQuery);
+                        localStorage.setItem('bumableContactQueries', JSON.stringify(contactQueries));
+                        
+                        console.log('💾 Saved to localStorage. Total queries:', contactQueries.length);
+                        
+                        // Show success message
+                        messageDiv.style.backgroundColor = '#d4edda';
+                        messageDiv.style.color = '#155724';
+                        messageDiv.style.border = '1px solid #c3e6cb';
+                        messageDiv.innerHTML = '✓ Thank you for your message! We will get back to you soon.';
                     }
-                    messageDiv.style.display = 'none';
-                }, 2000);
+                    
+                    // Reset form
+                    contactForm.reset();
+                    
+                    // Close modal after 2 seconds
+                    setTimeout(() => {
+                        if (contactModal) {
+                            contactModal.style.display = 'none';
+                        }
+                        messageDiv.style.display = 'none';
+                    }, 3000);
+                }
+                
+                saveContact();
                 
             } else {
                 messageDiv.style.display = 'block';
