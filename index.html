@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUMABLE - Underwear Revolution</title>
+    <meta name="description" content="Mom approved. Girlfriend removed. Discover stylish men's underwear that owns the spotlight.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css?v=20251201h">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <h1 class="logo">BUMABLE</h1>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-list">
+                        <li><a href="#home" class="nav-link">Home</a></li>
+                        <li><a href="pages/shop.html" class="nav-link">Shop</a></li>
+                        <li><a href="#about" class="nav-link">Our Story</a></li>
+                        <li><a href="#contact" class="nav-link">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="nav-actions">
+                    <button class="btn-notifications" id="notifications-btn" onclick="toggleNotifications()" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count" id="notification-count" style="display: none;">0</span>
+                    </button>
+                    <button class="btn-cart" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                    <button class="nav-toggle" id="nav-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Notifications Dropdown -->
+        <div class="notifications-dropdown" id="notifications-dropdown" style="display: none;">
+            <div class="notifications-header">
+                <h3>Notifications</h3>
+                <button class="close-notifications" onclick="closeNotifications()">&times;</button>
+            </div>
+            <div class="notifications-list" id="notifications-list">
+                <div class="no-notifications">
+                    <i class="fas fa-bell-slash"></i>
+                    <p>No new notifications</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> Shopping Cart</h3>
+            <button class="cart-close" onclick="toggleCart()">&times;</button>
+        </div>
+        
+        <div class="empty-cart" style="text-align: center; padding: 2rem;">
+            <i class="fas fa-shopping-cart" style="font-size: 3rem; color: #ccc; margin-bottom: 1rem;"></i>
+            <p>Your cart is empty</p>
+            <a href="pages/shop.html" class="btn btn-primary">Start Shopping</a>
+        </div>
+        
+        <div class="cart-content" style="display: none;">
+            <div class="cart-items-wrapper">
+                <div class="cart-items" id="cart-items">
+                    <!-- Cart items will be loaded here -->
+                </div>
+            </div>
+            <div class="cart-footer">
+                <!-- Cart footer will be updated by professional cart system -->
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="container">
+                    <div class="hero-text">
+                        <h1 class="hero-title">Mom approved<br>Girlfriend removed.</h1>
+                        <p class="hero-subtitle">Underwear Revolution is where comfort meets cheeky confidence, offering unique underwear for both men and women who dare to stand out. It's not just underwear; it's an attitude you wear.</p>
+                        <div class="hero-actions">
+                            <a href="pages/shop.html" class="btn btn-primary">Shop Now</a>
+                            <div class="sale-badge">
+                                <span class="sale-text">Final Sale - Get 30% Off</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="images/hero-product-1.jpg" alt="BUMABLE Premium Underwear Collection" class="hero-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Collection Section -->
+        <section id="collection" class="collection-section">
+            <div class="container">
+                <h2 class="section-title">Discover BUMABLE</h2>
+                <div class="collection-grid" id="collection-showcase">
+                    <!-- 🎨 BUMABLE BRIEF COLLECTION -->
+                    <a href="pages/shop.html?subcategory=bumable-brief" class="collection-post" data-subcategory="bumable-brief">
+                        <img src="images/hero-product-1.jpg" alt="Bumable Brief - BUMABLE" class="collection-img">
+                        <div class="collection-overlay">
+                            <div class="collection-content">
+                                <h3>🎨 Bumable Brief</h3>
+                                <p>Cheery Red, Olive, Lt Grey, Navy, Black</p>
+                                <span class="collection-btn">Shop Briefs <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- 🌈 TIE & DYE COLLECTION -->
+                    <a href="pages/shop.html?subcategory=tie-and-dye" class="collection-post" data-subcategory="tie-and-dye">
+                        <img src="images/products/tie-dye/tie-dye-1-main.jpg" alt="Tie and Dye Collection - BUMABLE" class="collection-img">
+                        <div class="collection-overlay">
+                            <div class="collection-content">
+                                <h3>🌈 Tie & Dye Collection</h3>
+                                <p>Artistic patterns & unique designs</p>
+                                <span class="collection-btn">Shop Tie-Dye <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- 🏆 SOLID TRUNKS COLLECTION -->
+                    <a href="pages/shop.html?subcategory=solid-trunks" class="collection-post" data-subcategory="solid-trunks">
+                        <img src="images/trunk-treasure.jpg" alt="Solid Trunks - BUMABLE" class="collection-img">
+                        <div class="collection-overlay">
+                            <div class="collection-content">
+                                <h3>🏆 Solid Trunks</h3>
+                                <p>Classic Colors & Premium Comfort</p>
+                                <span class="collection-btn">Shop Trunks <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="collection-cta">
+                    <div class="cta-content">
+                        <h3>Ready to upgrade your confidence?</h3>
+                        <p>Explore our complete collection and find your perfect fit</p>
+                        <a href="pages/shop.html" class="btn btn-premium">
+                            <span>Shop Full Collection</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Our Story</h2>
+                    <p class="section-subtitle">Where comfort meets cheeky confidence</p>
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Mom approved. Girlfriend removed.</h3>
+                        <p>Underwear Revolution is where comfort meets cheeky confidence, offering unique underwear for both men and women who dare to stand out. It's not just underwear; it's an attitude you wear.</p>
+                        
+                        <p>At BUMABLE, we believe that what you wear closest to your skin should make you feel confident, comfortable, and ready to take on the world. Our premium collection combines innovative fabric technology with bold, contemporary designs that speak to your personality.</p>
+                        
+                        <div class="about-features">
+                            <div class="feature-item">
+                                <i class="fas fa-heart"></i>
+                                <h4>Comfort First</h4>
+                                <p>Premium materials for all-day comfort</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-star"></i>
+                                <h4>Quality Assured</h4>
+                                <p>Rigorous testing for durability and fit</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-leaf"></i>
+                                <h4>Eco-Conscious</h4>
+                                <p>Sustainable materials and processes</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-image">
+                        <img src="images/hero-product-2.jpg" alt="BUMABLE Story" class="about-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instagram Section -->
+        <section class="instagram-section">
+            <div class="container">
+                <h2 class="section-title">Connect on Instagram</h2>
+                <div class="instagram-grid" id="instagram-feed">
+                    <div class="instagram-post">
+                        <img src="images/hero-product-1.jpg" alt="New Collections - BUMABLE" class="insta-img">
+                        <div class="insta-overlay">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                    <div class="instagram-post">
+                        <img src="images/trunk-treasure.jpg" alt="Comfort First - BUMABLE" class="insta-img">
+                        <div class="insta-overlay">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                    <div class="instagram-post">
+                        <img src="images/hipsters.jpg" alt="Style Guide - BUMABLE" class="insta-img">
+                        <div class="insta-overlay">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                    <div class="instagram-post">
+                        <img src="images/hero-product-2.jpg" alt="Behind the Scenes - BUMABLE" class="insta-img">
+                        <div class="insta-overlay">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Get in Touch</h3>
+                    <div class="contact-info">
+                        <p class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Palavanchipalayam<br>
+                            Tiruppur, Tamilnadu<br>
+                            641605
+                        </p>
+                        <p class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:ingeniumcouture@gmail.com">ingeniumcouture@gmail.com</a>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="pages/shop.html">Shop</a></li>
+                        <li><a href="#about">Our Story</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Policies</h3>
+                    <ul class="footer-links">
+                        <li><a href="pages/store-policy.html">Store Policy</a></li>
+                        <li><a href="pages/shipping.html">Shipping & Returns</a></li>
+                        <li><a href="pages/faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Follow Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61560298989888" target="_blank" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/bumableclothing/" target="_blank" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://in.pinterest.com/bumableclothing/" target="_blank" class="social-link">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 by BUMABLE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Contact Form Modal -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Contact Us</h2>
+            <form class="contact-form" id="contact-form">
+                <div class="form-group">
+                    <input type="text" name="firstName" placeholder="First Name *" required>
+                    <input type="text" name="lastName" placeholder="Last Name *" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email *" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" placeholder="Message *" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+                <div id="form-message" style="margin-top: 1rem; padding: 0.5rem; border-radius: 5px; display: none;"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/cart.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

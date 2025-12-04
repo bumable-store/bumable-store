@@ -1,0 +1,8 @@
+<!-- Placeholder SVG for products without images -->
+<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="300" fill="#f8f9fa"/>
+  <path d="M150 120C161.046 120 170 111.046 170 100C170 88.954 161.046 80 150 80C138.954 80 130 88.954 130 100C130 111.046 138.954 120 150 120Z" fill="#dee2e6"/>
+  <path d="M80 220L120 180L140 200L180 160L220 200V220H80Z" fill="#dee2e6"/>
+  <rect x="70" y="70" width="160" height="160" stroke="#adb5bd" stroke-width="2" stroke-dasharray="5,5" fill="none"/>
+  <text x="150" y="260" text-anchor="middle" fill="#6c757d" font-family="Arial, sans-serif" font-size="14">No Image Available</text>
+</svg>
