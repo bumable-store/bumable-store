@@ -107,26 +107,39 @@ function updateProductDisplay() {
 
 // Update home page product showcase
 function updateHomePageProducts(products) {
+    // Update product carousel if it exists
     const carousel = document.querySelector('.product-carousel');
-    if (!carousel) {
-        return;
+    if (carousel) {
+        // Clear existing products
+        carousel.innerHTML = '';
+        
+        // Show first 6 products or all if less than 6
+        const displayProducts = products.slice(0, 6);
+        
+        if (displayProducts.length === 0) {
+            carousel.innerHTML = '<div class="no-products" style="text-align: center; padding: 2rem; color: #666;">No products available</div>';
+        } else {
+            displayProducts.forEach(product => {
+                const productCard = createHomeProductCard(product);
+                carousel.appendChild(productCard);
+            });
+        }
     }
     
-    // Clear existing products
-    carousel.innerHTML = '';
-    
-    // Show first 6 products or all if less than 6
-    const displayProducts = products.slice(0, 6);
-    
-    if (displayProducts.length === 0) {
-        carousel.innerHTML = '<div class="no-products" style="text-align: center; padding: 2rem; color: #666;">No products available</div>';
-        return;
+    // Update shop section if it exists
+    const shopGrid = document.querySelector('.products-grid');
+    if (shopGrid) {
+        shopGrid.innerHTML = '';
+        
+        if (products.length === 0) {
+            shopGrid.innerHTML = '<div class="no-products" style="text-align: center; padding: 2rem; color: #666;">No products available</div>';
+        } else {
+            products.forEach(product => {
+                const productCard = createShopProductCard(product);
+                shopGrid.appendChild(productCard);
+            });
+        }
     }
-    
-    displayProducts.forEach(product => {
-        const productCard = createHomeProductCard(product);
-        carousel.appendChild(productCard);
-    });
 }
 
 // Update shop page products
@@ -174,6 +187,72 @@ function addToCartFromHome(productId) {
     
     if (typeof addToCart === 'function') {
         addToCart(productId, size, 1);
+    }
+}
+
+// Create product card for shop section on homepage
+function createShopProductCard(product) {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    
+    const salePrice = product.onSale ? product.salePrice : product.regularPrice;
+    const discountPercent = product.onSale ? Math.round(((product.regularPrice - product.salePrice) / product.regularPrice) * 100) : 0;
+    
+    card.innerHTML = `
+        <div class="product-image" style="background-image: url('${product.image}')">
+            ${product.onSale ? `<div class="product-badge">${discountPercent}% OFF</div>` : ''}
+        </div>
+        <div class="product-content">
+            <h3 class="product-name">${product.name}</h3>
+            <div class="product-price">
+                <span class="sale-price">₹${salePrice}</span>
+                ${product.onSale ? `<span class="original-price">₹${product.regularPrice}</span>` : ''}
+            </div>
+            <div class="product-controls">
+                <select class="size-selector" id="shop-size-${product.id}">
+                    <option value="">Choose Size</option>
+                    ${product.availableSizes.map(size => `<option value="${size}">${size}</option>`).join('')}
+                </select>
+                <div class="quantity-control">
+                    <button class="qty-btn" onclick="changeQuantity('shop-qty-${product.id}', -1)">-</button>
+                    <div class="qty-display" id="shop-qty-${product.id}">1</div>
+                    <button class="qty-btn" onclick="changeQuantity('shop-qty-${product.id}', 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCartFromShop('${product.id}')" ${!product.inStock ? 'disabled' : ''}>
+                    ${product.inStock ? 'Add to Cart' : 'Out of Stock'}
+                </button>
+            </div>
+        </div>
+    `;
+    
+    return card;
+}
+
+// Add to cart from shop section
+function addToCartFromShop(productId) {
+    const sizeSelect = document.getElementById(`shop-size-${productId}`);
+    const qtyDisplay = document.getElementById(`shop-qty-${productId}`);
+    
+    const size = sizeSelect ? sizeSelect.value : '';
+    const quantity = qtyDisplay ? parseInt(qtyDisplay.textContent) : 1;
+    
+    if (!size) {
+        alert('Please select a size');
+        return;
+    }
+    
+    if (typeof addToCart === 'function') {
+        addToCart(productId, size, quantity);
+    }
+}
+
+// Change quantity in shop section
+function changeQuantity(elementId, change) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        const currentQty = parseInt(element.textContent) || 1;
+        const newQty = Math.max(1, Math.min(10, currentQty + change));
+        element.textContent = newQty;
     }
 }
 
