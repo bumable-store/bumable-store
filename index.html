@@ -182,12 +182,74 @@
                 </div>
                 
                 <div class="products-grid" id="products-grid">
-                    <div style="text-align: center; padding: 2rem; border: 2px dashed #ccc; background: #f9f9f9; color: #666;">
-                        Loading products... If you see this message, JavaScript should replace it with products.
-                    </div>
+                    <!-- Products will be loaded by inline script below -->
                 </div>
             </div>
         </section>
+
+        <!-- Inline Product Loading Script -->
+        <script>
+            // Immediate product loading - no dependencies
+            (function() {
+                console.log('Inline script: Starting immediate product loading');
+                
+                // Simple product data
+                const products = [
+                    {id:'bumable-brief-cheery-red',name:'Bumable Brief – Cheery Red',regularPrice:499,salePrice:199,onSale:true,image:'images/hero-product-1.jpg',category:'briefs',inStock:true,availableSizes:['S','M','L','XL','XXL']},
+                    {id:'bumable-brief-olive',name:'Bumable Brief – Olive',regularPrice:499,salePrice:199,onSale:true,image:'images/hero-product-2.jpg',category:'briefs',inStock:true,availableSizes:['S','M','L','XL','XXL']},
+                    {id:'tie-and-dye-brief',name:'Tie and Dye Brief',regularPrice:599,salePrice:249,onSale:true,image:'images/products/tie-dye/tie-dye-1-main.jpg',category:'tie-dye',inStock:true,availableSizes:['S','M','L','XL','XXL']},
+                    {id:'tie-and-dye-trunks',name:'Tie and Dye Trunks',regularPrice:599,salePrice:249,onSale:true,image:'images/products/tie-dye/tie-dye-2-main.jpg',category:'tie-dye',inStock:true,availableSizes:['S','M','L','XL','XXL']},
+                    {id:'solid-trunks-navy',name:'Solid Trunks – Navy',regularPrice:499,salePrice:199,onSale:true,image:'images/products/solid/solid-navy-main.jpg',category:'trunks',inStock:true,availableSizes:['S','M','L','XL','XXL']},
+                    {id:'solid-trunks-grey',name:'Solid Trunks – Grey',regularPrice:499,salePrice:199,onSale:true,image:'images/products/solid/solid-2-main.jpg',category:'trunks',inStock:true,availableSizes:['S','M','L','XL','XXL']}
+                ];
+                
+                function createSimpleProductCard(product) {
+                    const discountPercent = Math.round(((product.regularPrice - product.salePrice) / product.regularPrice) * 100);
+                    
+                    return `
+                        <div class="product-card">
+                            <div class="product-image" style="background-image: url('${product.image}'); height: 250px; background-size: cover; background-position: center; position: relative; border-radius: 10px;">
+                                <div class="product-badge" style="position: absolute; top: 15px; right: 15px; background: #ff6b6b; color: white; padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.8rem; font-weight: 600;">${discountPercent}% OFF</div>
+                            </div>
+                            <div class="product-content" style="padding: 1.5rem;">
+                                <h3 class="product-name" style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">${product.name}</h3>
+                                <div class="product-price" style="margin-bottom: 1rem;">
+                                    <span class="sale-price" style="font-size: 1.3rem; font-weight: bold; color: #ff6b6b;">₹${product.salePrice}</span>
+                                    <span class="original-price" style="font-size: 1rem; color: #999; text-decoration: line-through; margin-left: 0.5rem;">₹${product.regularPrice}</span>
+                                </div>
+                                <div class="product-controls">
+                                    <select class="size-selector" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 1rem;">
+                                        <option value="">Choose Size</option>
+                                        ${product.availableSizes.map(size => `<option value="${size}">${size}</option>`).join('')}
+                                    </select>
+                                    <button class="add-to-cart-btn" style="width: 100%; background: linear-gradient(135deg, #ff6b6b, #ff5252); color: white; border: none; padding: 1rem; border-radius: 8px; font-weight: 600; cursor: pointer;" onclick="alert('Add to cart: ${product.name}')">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                // Wait for DOM to be ready
+                function loadProducts() {
+                    const grid = document.getElementById('products-grid');
+                    if (grid) {
+                        console.log('Grid found, loading products');
+                        grid.innerHTML = products.map(product => createSimpleProductCard(product)).join('');
+                        console.log('Products loaded successfully!');
+                    } else {
+                        console.log('Grid not found, retrying...');
+                        setTimeout(loadProducts, 100);
+                    }
+                }
+                
+                // Start loading
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', loadProducts);
+                } else {
+                    loadProducts();
+                }
+            })();
+        </script>
 
         <!-- About Section -->
         <section id="about" class="about-section">
