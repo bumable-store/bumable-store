@@ -246,7 +246,7 @@
                             ${priceHtml}
                             <div class="shopping-controls">
                                 <div class="size-selection">
-                                    <label>Size:</label>
+                                    <div class="control-label">Size:</div>
                                     <div class="card-size-options-grid">
                                         ${product.availableSizes.map(size => 
                                             `<div class="card-size-option" data-size="${size}" data-product-id="${product.id}" onclick="event.stopPropagation(); selectCardSize('${product.id}', '${size}')">${size}</div>`
@@ -254,11 +254,11 @@
                                     </div>
                                 </div>
                                 <div class="quantity-selection">
-                                    <label>Quantity:</label>
+                                    <div class="control-label">Quantity:</div>
                                     <div class="quantity-controls">
-                                        <button type="button" data-product-id="${product.id}" data-change="-1" class="qty-btn qty-decrease">-</button>
-                                        <span id="qty-display-${product.id}" class="qty-display">0</span>
-                                        <button type="button" data-product-id="${product.id}" data-change="1" class="qty-btn qty-increase">+</button>
+                                        <button type="button" data-product-id="${product.id}" data-change="-1" class="qty-btn qty-decrease" aria-label="Decrease quantity">-</button>
+                                        <span id="qty-display-${product.id}" class="qty-display" aria-label="Current quantity">0</span>
+                                        <button type="button" data-product-id="${product.id}" data-change="1" class="qty-btn qty-increase" aria-label="Increase quantity">+</button>
                                     </div>
                                 </div>
                                 <button onclick="event.stopPropagation(); addProductToCart('${product.id}')" class="add-to-cart-btn" ${product.stockCount === 0 ? 'disabled' : ''}>

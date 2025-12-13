@@ -2036,6 +2036,13 @@ section {
     margin-bottom: 0.8rem; 
 }
 
+.control-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 0.9rem;
+}
+
 .quantity-controls { 
     display: flex; 
     align-items: center; 
