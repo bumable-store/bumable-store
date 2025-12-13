@@ -185,10 +185,7 @@
     
     /* Navigation */
     .header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
+        position: relative;
         background: white;
         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
@@ -230,7 +227,6 @@
     /* Hero */
     .hero {
         min-height: 100vh;
-        padding-top: 80px;
         padding-bottom: 2rem;
     }
     
