@@ -10,6 +10,7 @@ body {
     line-height: 1.6;
     color: #333;
     overflow-x: hidden;
+    background-color: white;
 }
 
 .container {
@@ -2395,7 +2396,7 @@ section {
     height: 20px;
     font-size: 12px;
     font-weight: bold;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     animation: bounce 0.3s ease;
