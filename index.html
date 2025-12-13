@@ -396,6 +396,14 @@
                 if (typeof testProductLoading === 'function') {
                     testProductLoading();
                 }
+                
+                // Also try force loading
+                setTimeout(function() {
+                    if (typeof forceLoadProducts === 'function') {
+                        console.log('Trying force load...');
+                        forceLoadProducts();
+                    }
+                }, 1000);
             }, 3000);
         });
     </script>

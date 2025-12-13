@@ -101,19 +101,70 @@ function testProductLoading() {
 
 // Product system initialization
 function initProductSystem() {
+    console.log('initProductSystem called');
+    
     // Check if we're not in admin
     if (window.location.pathname.includes('admin')) {
+        console.log('In admin page, skipping product init');
         return;
     }
     
     // Check if ProductManager exists (should be loaded from products.js)
     if (window.ProductManager) {
+        console.log('ProductManager found, creating instance');
         window.productManager = new ProductManager();
+        console.log('ProductManager instance created');
         updateProductDisplay();
     } else {
+        console.log('ProductManager not found, retrying in 1 second');
         // Try again after a short delay
         setTimeout(initProductSystem, 1000);
     }
+}
+
+// Force product loading for debugging
+function forceLoadProducts() {
+    console.log('=== FORCE LOADING PRODUCTS ===');
+    
+    if (!window.ProductManager) {
+        console.error('ProductManager class not available');
+        return;
+    }
+    
+    // Create ProductManager instance
+    const productManager = new ProductManager();
+    const products = productManager.getAllProducts();
+    console.log('Force loaded products:', products.length);
+    
+    // Find the shop grid
+    const shopGrid = document.querySelector('.products-grid');
+    console.log('Shop grid element found:', !!shopGrid);
+    
+    if (!shopGrid) {
+        console.error('products-grid element not found');
+        return;
+    }
+    
+    // Clear and populate
+    shopGrid.innerHTML = '';
+    
+    if (products.length === 0) {
+        shopGrid.innerHTML = '<div class="no-products" style="text-align: center; padding: 2rem; color: #666;">No products available</div>';
+        return;
+    }
+    
+    // Create product cards
+    products.forEach((product, index) => {
+        console.log(`Creating card for product ${index + 1}:`, product.name);
+        try {
+            const productCard = createShopProductCard(product);
+            shopGrid.appendChild(productCard);
+        } catch (error) {
+            console.error(`Error creating card for product ${product.name}:`, error);
+        }
+    });
+    
+    console.log('Products loaded successfully!');
 }
 
 // Update product display on website
